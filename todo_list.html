@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A professional and elegant to-do list application for managing tasks efficiently.">
+  <meta name="keywords" content="To-Do List, Task Manager, Productivity">
+  <meta name="author" content="Om Kumar">
+  <title>To-Do List | Task Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+      transition: background-color 0.3s;
+    }
+    .content-container {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 20px;
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+  }
+  .navbar {
+    width: 100%;
+    background: #ffffff;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+  }
+
+    .navbar h1 {
+      font-size: 24px;
+      color: #007bff;
+      margin: 0;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 500;
+      margin-left: 20px;
+      transition: color 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #0056b3;
+    }
+
+    .todo-container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 600px;
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #343a40;
+      font-size: 28px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #007bff;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .input-container {
+      display: flex;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .input-container input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #007bff;
+      border-radius: 6px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .input-container input:focus {
+      border-color: #0056b3;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    }
+
+    .priority-select {
+      padding: 12px;
+      border: 2px solid #007bff;
+      border-radius: 6px;
+      font-size: 16px;
+      background: white;
+      outline: none;
+    }
+
+    .input-container button {
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .input-container button:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    .todo-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    .todo-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8f9fa;
+      padding: 15px;
+      margin-bottom: 10px;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    .todo-item:hover {
+      background-color: #e2e6ea;
+    }
+
+    .todo-item.completed {
+      text-decoration: line-through;
+      color: #6c757d;
+    }
+
+    .todo-item span {
+      cursor: pointer;
+      flex: 1;
+      word-wrap: break-word;
+    }
+
+    .todo-item button {
+      background: none;
+      border: none;
+      color: #dc3545;
+      font-size: 16px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .todo-item button:hover {
+      color: #bd2130;
+    }
+
+    .progress-bar {
+      background: #e9ecef;
+      height: 10px;
+      border-radius: 5px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar span {
+      display: block;
+      height: 100%;
+      background: #007bff;
+      width: 0;
+      transition: width 0.3s;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #6c757d;
+    }
+
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Task Manager</h1>
+    <div>
+      <a href="#" onclick="scrollToSection('home')">Home</a>
+      <a href="#" onclick="scrollToSection('about')">About</a>
+      <a href="#" onclick="scrollToSection('contact')">Contact</a>
+    </div>
+  </div>
+
+  <div class="todo-container" id="home">
+    <h1>To-Do List</h1>
+    <div class="input-container">
+      <input type="text" id="todo-input" placeholder="Add a new task...">
+      <select id="priority-select" class="priority-select">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <button onclick="addTodo()"><i class="fas fa-plus"></i> Add</button>
+    </div>
+    <ul class="todo-list" id="todo-list"></ul>
+    <div class="progress-bar"><span id="progress-bar-fill"></span></div>
+    <footer>
+      Made with ♥ by <a href="#">Om Kumar</a> | <a href="#">Privacy Policy</a>
+    </footer>
+  </div>
+
+  <div class="content-container" id="about">
+    <h2>About</h2>
+    <p>This task manager is designed to help you stay organized and productive.</p>
+  </div>
+
+  <div class="content-container" id="contact">
+    <h2>Contact</h2>
+    <p>For any inquiries, email us at <a href="mailto:support@example.com">support@example.com</a>.</p>
+  </div>
+
+  <script>
+    function addTodo() {
+      const todoInput = document.getElementById('todo-input');
+      const prioritySelect = document.getElementById('priority-select');
+      const todoList = document.getElementById('todo-list');
+
+      if (todoInput.value.trim() === '') {
+        alert('Please enter a task!');
+        return;
+      }
+
+      const listItem = document.createElement('li');
+      listItem.className = 'todo-item';
+      listItem.dataset.priority = prioritySelect.value;
+      listItem.innerHTML = `
+        <span onclick="toggleComplete(this)">${todoInput.value} - <strong>${prioritySelect.value} Priority</strong></span>
+        <button onclick="deleteTodo(this)"><i class="fas fa-trash"></i></button>
+      `;
+
+      todoList.appendChild(listItem);
+      updateProgressBar();
+      todoInput.value = '';
+    }
+
+    function deleteTodo(button) {
+      const todoList = document.getElementById('todo-list');
+      todoList.removeChild(button.parentElement);
+      updateProgressBar();
+    }
+
+    function toggleComplete(span) {
+      span.parentElement.classList.toggle('completed');
+      updateProgressBar();
+    }
+
+    function updateProgressBar() {
+      const todoList = document.getElementById('todo-list');
+      const tasks = todoList.children;
+      const completedTasks = [...tasks].filter(task => task.classList.contains('completed'));
+      const progressBarFill = document.getElementById('progress-bar-fill');
+      const percentage = tasks.length ? (completedTasks.length / tasks.length) * 100 : 0;
+      progressBarFill.style.width = `${percentage}%`;
+    }
+
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+</html>
