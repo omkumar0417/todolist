@@ -60,6 +60,23 @@
       margin-left: 20px;
       transition: color 0.3s;
     }
+/* Mobile adjustments for navbar */
+@media (max-width: 768px) {
+  .navbar h1 {
+    font-size: 20px;
+  }
+
+  .navbar a {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar h1 {
+    font-size: 18px;
+  }
+}
 
     .navbar a:hover {
       color: #0056b3;
@@ -98,6 +115,29 @@
       margin-bottom: 20px;
       gap: 10px;
     }
+/* Mobile adjustments for input container */
+@media (max-width: 768px) {
+  .input-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-container input,
+  .priority-select,
+  .input-container button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+/* Adjustments for very small screens */
+@media (max-width: 480px) {
+  .input-container input,
+  .priority-select,
+  .input-container button {
+    font-size: 14px;
+  }
+}
 
     .input-container input {
       flex: 1;
@@ -157,6 +197,18 @@
       border-radius: 6px;
       transition: background-color 0.3s;
     }
+/* Mobile adjustments for todo item */
+@media (max-width: 768px) {
+  .todo-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .todo-item button {
+    align-self: flex-end;
+  }
+}
 
     .todo-item:hover {
       background-color: #e2e6ea;
@@ -194,6 +246,12 @@
       position: relative;
       overflow: hidden;
     }
+/* Mobile adjustments for progress bar */
+@media (max-width: 768px) {
+  .progress-bar {
+    margin-top: 10px;
+  }
+}
 
     .progress-bar span {
       display: block;
@@ -208,6 +266,18 @@
       font-size: 14px;
       color: #6c757d;
     }
+/* Mobile adjustments for footer */
+@media (max-width: 768px) {
+  footer {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    font-size: 10px;
+  }
+}
 
     footer a {
       color: #007bff;
