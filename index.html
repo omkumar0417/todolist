@@ -3,191 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A professional and elegant to-do list application for managing tasks efficiently.">
-  <meta name="keywords" content="To-Do List, Task Manager, Productivity">
-  <meta name="author" content="Om Kumar">
-  <title>To-Do List | Task Manager</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='50%' font-size='50' text-anchor='middle' dy='.35em'>📝</text></svg>" type="image/svg+xml">
-
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Enhanced To-Do List</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* General Styling */
     body {
       font-family: 'Roboto', sans-serif;
       background: linear-gradient(135deg, #6a11cb, #2575fc);
       margin: 0;
       padding: 0;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       color: #333;
-      transition: background-color 0.3s;
     }
-    .content-container {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    margin: 20px;
-    width: 90%;
-    max-width: 800px;
-    text-align: center;
-  }
-  .navbar {
-    width: 100%;
-    background: #ffffff;
-    padding: 10px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-  }
-
-    .navbar h1 {
-      font-size: 24px;
-      color: #007bff;
-      margin: 0;
-    }
-
-    .navbar a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: 500;
-      margin-left: 20px;
-      transition: color 0.3s;
-    }
-/* Mobile adjustments for navbar */
-@media (max-width: 768px) {
-  .navbar h1 {
-    font-size: 20px;
-  }
-
-  .navbar a {
-    font-size: 14px;
-    margin-left: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .navbar h1 {
-    font-size: 18px;
-  }
-}
-
-    .navbar a:hover {
-      color: #0056b3;
-    }
-
     .todo-container {
-      background: #ffffff;
+      background: #fff;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 90%;
       max-width: 600px;
-      margin-top: 80px;
-      text-align: center;
     }
-
     h1 {
-      color: #343a40;
+      text-align: center;
       font-size: 28px;
       margin-bottom: 20px;
-      border-bottom: 2px solid #007bff;
-      display: inline-block;
-      padding-bottom: 5px;
+      color: #343a40;
     }
-
-    .theme-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
-      font-size: 18px;
-    }
-
     .input-container {
       display: flex;
-      margin-bottom: 20px;
+      flex-wrap: wrap;
       gap: 10px;
+      margin-bottom: 20px;
     }
-/* Mobile adjustments for input container */
-@media (max-width: 768px) {
-  .input-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .input-container input,
-  .priority-select,
-  .input-container button {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-}
-
-/* Adjustments for very small screens */
-@media (max-width: 480px) {
-  .input-container input,
-  .priority-select,
-  .input-container button {
-    font-size: 14px;
-  }
-}
-
-    .input-container input {
+    .input-container input, .input-container select, .input-container button {
       flex: 1;
       padding: 12px;
-      border: 2px solid #007bff;
       border-radius: 6px;
       font-size: 16px;
-      outline: none;
-      transition: border-color 0.3s, box-shadow 0.3s;
     }
-
-    .input-container input:focus {
-      border-color: #0056b3;
-      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-    }
-
-    .priority-select {
-      padding: 12px;
+    .input-container input, .input-container select {
       border: 2px solid #007bff;
-      border-radius: 6px;
-      font-size: 16px;
-      background: white;
-      outline: none;
     }
-
     .input-container button {
-      padding: 12px 20px;
       background-color: #007bff;
-      color: white;
+      color: #fff;
       border: none;
-      border-radius: 6px;
-      font-size: 16px;
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
+      transition: background-color 0.3s;
     }
-
     .input-container button:hover {
       background-color: #0056b3;
-      transform: translateY(-2px);
     }
-
     .todo-list {
       list-style: none;
       padding: 0;
-      margin: 0;
-      text-align: left;
     }
-
     .todo-item {
       display: flex;
       justify-content: space-between;
@@ -197,241 +69,145 @@
       margin-bottom: 10px;
       border: 1px solid #e9ecef;
       border-radius: 6px;
-      transition: background-color 0.3s;
+      transition: transform 0.2s, background-color 0.3s;
     }
-/* Mobile adjustments for todo item */
-@media (max-width: 768px) {
-  .todo-item {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 12px;
-  }
-
-  .todo-item button {
-    align-self: flex-end;
-  }
-}
-
     .todo-item:hover {
-      background-color: #e2e6ea;
+      transform: scale(1.02);
+      background-color: #f1f1f1;
     }
-
     .todo-item.completed {
       text-decoration: line-through;
       color: #6c757d;
     }
-
-    .todo-item span {
-      cursor: pointer;
-      flex: 1;
-      word-wrap: break-word;
+    .progress-container {
+      text-align: center;
+      margin: 20px 0;
     }
-
-    .todo-item button {
-      background: none;
-      border: none;
-      color: #dc3545;
-      font-size: 16px;
-      cursor: pointer;
-      transition: color 0.3s;
+    .progress-label {
+      margin-bottom: 5px;
+      font-weight: bold;
     }
-
-    .todo-item button:hover {
-      color: #bd2130;
-    }
-
     .progress-bar {
       background: #e9ecef;
       height: 10px;
       border-radius: 5px;
-      margin: 20px 0;
-      position: relative;
       overflow: hidden;
+      position: relative;
     }
-/* Mobile adjustments for progress bar */
-@media (max-width: 768px) {
-  .progress-bar {
-    margin-top: 10px;
-  }
-}
-
     .progress-bar span {
       display: block;
       height: 100%;
       background: #007bff;
       width: 0;
-      transition: width 0.3s;
-    }
-
-    footer {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #6c757d;
-    }
-/* Mobile adjustments for footer */
-@media (max-width: 768px) {
-  footer {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  footer {
-    font-size: 10px;
-  }
-}
-
-    footer a {
-      color: #007bff;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    footer a:hover {
-      color: #0056b3;
+      transition: width 0.3s ease-in-out;
     }
   </style>
 </head>
 <body>
-  <div class="navbar">
-    <h1>Task Manager</h1>
-    <div>
-      <a href="#" onclick="scrollToSection('home')">Home</a>
-      <a href="#" onclick="scrollToSection('about')">About</a>
-      <a href="#" onclick="scrollToSection('contact')">Contact</a>
-    </div>
-  </div>
-
-  <div class="todo-container" id="home">
-    <h1>To-Do List</h1>
+  <div class="todo-container">
+    <h1>Enhanced To-Do List</h1>
     <div class="input-container">
       <input type="text" id="todo-input" placeholder="Add a new task...">
-      <select id="priority-select" class="priority-select">
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
+      <select id="priority-select">
+        <option value="High" style="color: red;">High</option>
+        <option value="Medium" style="color: orange;">Medium</option>
+        <option value="Low" style="color: green;">Low</option>
       </select>
-      <button onclick="addTodo()"><i class="fas fa-plus"></i> Add</button>
+      <input type="date" id="due-date">
+      <button onclick="addTodo()">Add</button>
     </div>
     <ul class="todo-list" id="todo-list"></ul>
-    <div class="progress-bar"><span id="progress-bar-fill"></span></div>
-    <footer>
-      Made with ♥ by <a href="#">Om Kumar</a> | <a href="#">Privacy Policy</a>
-    </footer>
-  </div>
-
-  <div class="content-container" id="about">
-    <h2>About</h2>
-    <p>This task manager is designed to help you stay organized and productive.</p>
-  </div>
-
-  <div class="content-container" id="contact">
-    <h2>Contact</h2>
-    <p>For any inquiries, email us at <a href="mailto:support@example.com">support@example.com</a>.</p>
+    <div class="progress-container">
+      <div class="progress-label">Completion: <span id="progress-percentage">0%</span></div>
+      <div class="progress-bar"><span id="progress-bar-fill"></span></div>
+    </div>
   </div>
 
   <script>
-    
-   // Save tasks to local storage
-function saveTasks() {
-  const todoList = document.getElementById('todo-list');
-  const tasks = [];
+    function addTodo() {
+      const todoInput = document.getElementById('todo-input');
+      const prioritySelect = document.getElementById('priority-select');
+      const dueDate = document.getElementById('due-date');
+      const todoList = document.getElementById('todo-list');
 
-  // Loop through each task and store it
-  [...todoList.children].forEach(task => {
-    tasks.push({
-      text: task.querySelector('span').innerText.split(' - ')[0], // Task text without priority
-      priority: task.dataset.priority,
-      completed: task.classList.contains('completed')
-    });
-  });
+      if (!todoInput.value.trim()) {
+        alert('Please enter a task!');
+        return;
+      }
 
-  localStorage.setItem('todos', JSON.stringify(tasks));
-}
-
-// Load tasks from local storage
-function loadTasks() {
-  const savedTasks = localStorage.getItem('todos');
-  if (savedTasks) {
-    const tasks = JSON.parse(savedTasks);
-    const todoList = document.getElementById('todo-list');
-    
-    tasks.forEach(task => {
       const listItem = document.createElement('li');
       listItem.className = 'todo-item';
-      listItem.dataset.priority = task.priority;
-      if (task.completed) listItem.classList.add('completed');
+      listItem.dataset.priority = prioritySelect.value;
+      listItem.dataset.dueDate = dueDate.value;
       listItem.innerHTML = `
-        <span onclick="toggleComplete(this)">${task.text} - <strong>${task.priority} Priority</strong></span>
+        <span onclick="toggleComplete(this)">
+          ${todoInput.value} - <strong>${prioritySelect.value}</strong> - Due: ${dueDate.value || 'No date'}
+        </span>
         <button onclick="deleteTodo(this)"><i class="fas fa-trash"></i></button>
       `;
+
       todoList.appendChild(listItem);
-    });
-    updateProgressBar();
-  }
-}
+      saveAndRenderTasks();
+      todoInput.value = '';
+      dueDate.value = '';
+    }
 
-// Function to add a new todo
-function addTodo() {
-  const todoInput = document.getElementById('todo-input');
-  const prioritySelect = document.getElementById('priority-select');
-  const todoList = document.getElementById('todo-list');
+    function deleteTodo(button) {
+      button.parentElement.remove();
+      saveAndRenderTasks();
+    }
 
-  if (todoInput.value.trim() === '') {
-    alert('Please enter a task!');
-    return;
-  }
+    function toggleComplete(span) {
+      span.parentElement.classList.toggle('completed');
+      saveAndRenderTasks();
+    }
 
-  const listItem = document.createElement('li');
-  listItem.className = 'todo-item';
-  listItem.dataset.priority = prioritySelect.value;
-  listItem.innerHTML = `
-    <span onclick="toggleComplete(this)">${todoInput.value} - <strong>${prioritySelect.value} Priority</strong></span>
-    <button onclick="deleteTodo(this)"><i class="fas fa-trash"></i></button>
-  `;
-  
-  todoList.appendChild(listItem);
-  saveTasks();  // Save tasks after adding a new one
-  updateProgressBar();
-  todoInput.value = '';
-}
+    function saveAndRenderTasks() {
+      const todoList = document.getElementById('todo-list');
+      const tasks = Array.from(todoList.children).map(task => ({
+        text: task.querySelector('span').innerText.split(' - ')[0],
+        priority: task.dataset.priority,
+        dueDate: task.dataset.dueDate,
+        completed: task.classList.contains('completed'),
+      }));
 
-// Function to delete a todo
-function deleteTodo(button) {
-  const todoList = document.getElementById('todo-list');
-  todoList.removeChild(button.parentElement);
-  saveTasks();  // Save tasks after deleting one
-  updateProgressBar();
-}
+      tasks.sort((a, b) => {
+        if (a.completed !== b.completed) return a.completed - b.completed;
+        if (a.priority === b.priority) return new Date(a.dueDate) - new Date(b.dueDate);
+        return ['High', 'Medium', 'Low'].indexOf(a.priority) - ['High', 'Medium', 'Low'].indexOf(b.priority);
+      });
 
-// Function to toggle completion of a todo
-function toggleComplete(span) {
-  span.parentElement.classList.toggle('completed');
-  saveTasks();  // Save tasks after toggling completion
-  updateProgressBar();
-}
+      todoList.innerHTML = '';
+      tasks.forEach(task => {
+        const listItem = document.createElement('li');
+        listItem.className = 'todo-item';
+        if (task.completed) listItem.classList.add('completed');
+        listItem.dataset.priority = task.priority;
+        listItem.dataset.dueDate = task.dueDate;
+        listItem.innerHTML = `
+          <span onclick="toggleComplete(this)">
+            ${task.text} - <strong>${task.priority}</strong> - Due: ${task.dueDate || 'No date'}
+          </span>
+          <button onclick="deleteTodo(this)"><i class="fas fa-trash"></i></button>
+        `;
+        todoList.appendChild(listItem);
+      });
 
-// Load tasks when the page is loaded
-window.onload = loadTasks;
+      updateProgressBar();
+    }
 
-
-    
     function updateProgressBar() {
       const todoList = document.getElementById('todo-list');
       const tasks = todoList.children;
-      const completedTasks = [...tasks].filter(task => task.classList.contains('completed'));
+      const completedTasks = Array.from(tasks).filter(task => task.classList.contains('completed'));
       const progressBarFill = document.getElementById('progress-bar-fill');
+      const progressPercentage = document.getElementById('progress-percentage');
       const percentage = tasks.length ? (completedTasks.length / tasks.length) * 100 : 0;
       progressBarFill.style.width = `${percentage}%`;
+      progressPercentage.textContent = `${Math.round(percentage)}%`;
     }
 
-    function scrollToSection(sectionId) {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+    window.onload = saveAndRenderTasks;
   </script>
-  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
