@@ -74,11 +74,11 @@
       text-decoration: line-through;
       color: #6c757d;
     }
-    .progress-container {
+    .progress-container, .stats-container {
       text-align: center;
       margin: 20px 0;
     }
-    .progress-label {
+    .progress-label, .stats-label {
       margin-bottom: 5px;
       font-weight: bold;
     }
@@ -112,6 +112,13 @@
       <button onclick="addTodo()">Add</button>
     </div>
     <ul class="todo-list" id="todo-list"></ul>
+    <div class="stats-container">
+      <p class="stats-label">Task Statistics</p>
+      <p>Total Tasks: <span id="total-tasks">0</span></p>
+      <p>Tasks Left (High): <span id="tasks-left-high">0</span></p>
+      <p>Tasks Left (Medium): <span id="tasks-left-medium">0</span></p>
+      <p>Tasks Left (Low): <span id="tasks-left-low">0</span></p>
+    </div>
     <div class="progress-container">
       <div class="progress-label">Completion: <span id="progress-percentage">0%</span></div>
       <div class="progress-bar"><span id="progress-bar-fill"></span></div>
@@ -119,7 +126,6 @@
   </div>
 
   <script>
-    // Save tasks to localStorage
     function saveTasksToLocalStorage() {
       const todoList = document.getElementById('todo-list');
       const tasks = Array.from(todoList.children).map(task => ({
@@ -129,12 +135,11 @@
         completed: task.classList.contains('completed'),
       }));
 
-      // Sort tasks by priority: High > Medium > Low
       tasks.sort((a, b) => {
         const priorityOrder = { High: 1, Medium: 2, Low: 3 };
         return (
           priorityOrder[a.priority] - priorityOrder[b.priority] ||
-          new Date(a.dueDate) - new Date(b.dueDate) // If priority is same, sort by due date
+          new Date(a.dueDate) - new Date(b.dueDate)
         );
       });
 
@@ -142,7 +147,6 @@
       renderTasks();
     }
 
-    // Load tasks from localStorage and render
     function loadTasksFromLocalStorage() {
       const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
       renderTasks(tasks);
@@ -165,6 +169,7 @@
         `;
         todoList.appendChild(listItem);
       });
+      updateStats();
       updateProgressBar();
     }
 
@@ -194,19 +199,36 @@
       saveTasksToLocalStorage();
       todoInput.value = '';
       dueDate.value = '';
+      updateStats();
       updateProgressBar();
     }
 
     function deleteTodo(button) {
       button.parentElement.remove();
       saveTasksToLocalStorage();
+      updateStats();
       updateProgressBar();
     }
 
     function toggleComplete(span) {
       span.parentElement.classList.toggle('completed');
       saveTasksToLocalStorage();
+      updateStats();
       updateProgressBar();
+    }
+
+    function updateStats() {
+      const todoList = document.getElementById('todo-list');
+      const tasks = Array.from(todoList.children);
+      const totalTasks = tasks.length;
+      const highTasks = tasks.filter(task => task.dataset.priority === 'High' && !task.classList.contains('completed')).length;
+      const mediumTasks = tasks.filter(task => task.dataset.priority === 'Medium' && !task.classList.contains('completed')).length;
+      const lowTasks = tasks.filter(task => task.dataset.priority === 'Low' && !task.classList.contains('completed')).length;
+
+      document.getElementById('total-tasks').textContent = totalTasks;
+      document.getElementById('tasks-left-high').textContent = highTasks;
+      document.getElementById('tasks-left-medium').textContent = mediumTasks;
+      document.getElementById('tasks-left-low').textContent = lowTasks;
     }
 
     function updateProgressBar() {
